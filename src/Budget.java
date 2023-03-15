@@ -1,5 +1,3 @@
-
-
 public class Budget {
     private Date BWeek[];
     private Expense expense[];
@@ -31,10 +29,11 @@ public class Budget {
   //getExpense
 
 
-    // to see if expese is more than budget
-    public void ChkExceedBudget(Expense expense ){
-        int i = numWeekD;
-        if (expense[i] > budgetAmt[i]){
+    // to see if expense is more than budget
+    // if expense == 4 then check exceed budget
+    public void ChkExceedBudget(double totalexpense, int weeknum){
+        int i = weeknum;
+        if (totalexpense > budgetAmt[i]){
             System.out.println("You have exceeded your budget amount for this week! ");
         }
     }
