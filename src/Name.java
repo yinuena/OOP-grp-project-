@@ -32,6 +32,12 @@ public class Name {
         this.lname = lname;
     }
 
+    public void DisplayName(){
+        System.out.println("First name: " + fname);
+        System.out.println("Middle name: " + mname);
+        System.out.println("Last name: " + lname);
+    }
+
     @Override
     public String toString() {
         return "Name{" +
@@ -40,4 +46,3 @@ public class Name {
                 ", lname='" + lname + '\'' +
                 '}';
     }
-}
