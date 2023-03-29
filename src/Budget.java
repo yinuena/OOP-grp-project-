@@ -2,10 +2,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Budget {
-    private Date BWeek[];
     private Expense expense[];
     private float[] budget;
     private String currency;
+
+    public Budget(int size) {
+        budget = new float[size];
+    }
+
+    public void setBudget(int index, float amount) {
+        budget[index] = amount;
+    }
 
     public float getBudgetAmount(int index){
         return budget[index];
@@ -24,14 +31,14 @@ public class Budget {
     }
 
     public void ChkExceedBudget(double totalexpense, int weeknum){
-        int i = weeknum;
-        if (totalexpense > budget[i]){
+        if (totalexpense > budget[weeknum]){
             System.out.println("You have exceeded your budget amount for this week!");
+        }
+        else {System.out.print("Congrats you are able to spend within your budget! ");
         }
     }
 
     public Budget(){
-        BWeek = new Date[52];
         expense = new Expense[52];
         budget = new float[52];
         currency = "USD";
@@ -48,3 +55,5 @@ public class Budget {
         budget.ChkExceedBudget(1200, Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) - 1);
     }
 }
+
+
