@@ -42,3 +42,4 @@ public class Expense {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+}
