@@ -26,11 +26,11 @@ public class Main {
         String fname = null;
         String mname = null;
         String lname = null;
-        int weeknum;
+
 
         int option = 0;
         while (option != 6) {
-            System.out.println("----- Welcome to Savings Tracker ----- \n [1] Login \n [2] Check Login Details \n [3] Set Budget \n [4] Expense \n [5] Date Details \n [6] Quit");
+            System.out.println("----- Welcome to Hello My Ca$h  ----- \n [1] Login \n [2] Check Login Details \n [3] Set Budget \n [4] Expense \n [5] Date Details \n [6] Quit");
             System.out.print("Enter your choice of menu: ");
             option = sc.nextInt();
 
@@ -42,11 +42,11 @@ public class Main {
 
                 try {
                     sc.nextLine();
-                    System.out.print("Enter your username:");
+                    System.out.print("Enter your username: ");
                     username = sc.nextLine();
-                    System.out.print("Enter your email:");
+                    System.out.print("Enter your email: ");
                     email = sc.nextLine();
-                    System.out.print("Enter your password:");
+                    System.out.print("Enter your password: ");
                     password = sc.nextLine();
                     System.out.print("Enter your age: ");
                     age = sc.nextInt();
@@ -57,7 +57,7 @@ public class Main {
                     mname = sc.nextLine();
                     System.out.print("Enter your last name: ");
                     lname = sc.nextLine();
-                    db.insert(username,email,password,age,fname,mname,lname);
+                    db.insertRegistration(username,email,password,age,fname,mname,lname);
                 } catch (Exception e) {
                     System.out.println("I/O Exception");
                 }
@@ -106,37 +106,58 @@ public class Main {
                 System.out.print("Enter the currency you want to proceed with:  ");
                 String currency = sc.nextLine();
                 budgetW.setCurrency(currency);
+                String date = null;
+                int index =0;
+                float amount =0;
+                float Dayamount = 0;
 
-                System.out.print("---Set [1] Todays Budget OR [2] Week Budget---");
-                int c = sc.nextInt();
-                if (c == 1) {
-                    BudgetDay daybudget = new BudgetDay();
-                    String date = daybudget.getDate();
-                    System.out.println("Enter For Today's Budget " + date + " : ");
-                    float amount = sc.nextFloat();
-                    daybudget.setDayBudget(amount);
-                }
+            int c = 3;
+            while(c != 0 ) {
+                System.out.print("---Set [1] Todays Budget OR [2] Week Budget--- [0]quit : ");
+                c = sc.nextInt();
 
-                if (c == 2) {
-                    //get budget from userr
-                    System.out.print("Enter the week of the month you want to set the budget to: ");
-                    int index = sc.nextInt();
 
-                    //error checking
-                    if ((index > 4) || (index <= 0)) {
+                    if (c == 1) {
+                        BudgetDay daybudget = new BudgetDay();
+                        date = daybudget.getDate();
+                        System.out.println("Enter For Today's Budget " + date + " : ");
+                        Dayamount = sc.nextFloat();
+                        daybudget.setDayBudget(Dayamount);
                         index = 0;
-                        System.out.println("invalid input ");
+                        db.insertBudget(date,Dayamount, index,amount);
+                    }
+
+                    if (c == 2) {
+                        //get budget from userr
                         System.out.print("Enter the week of the month you want to set the budget to: ");
                         index = sc.nextInt();
+
+                        //error checking
+                        if ((index > 4) || (index <= 0)) {
+                            index = 0;
+                            System.out.println("invalid input ");
+                            System.out.print("Enter the week of the month you want to set the budget to: ");
+                            index = sc.nextInt();
+                        }
+                        System.out.print("Enter week " + index + " budget: ");
+                        amount = sc.nextFloat();
+                        budgetW.setBudgetWeek(amount, index);
+                        date = null;
+                        db.insertBudget(date,Dayamount, index,amount);
                     }
-                    System.out.print("Enter week " + index + " budget: ");
-                    float amount = sc.nextFloat();
-                    budgetW.setBudgetWeek(amount, index);
+
                 }
 
             }
 
             if (option == 4) {
+                //variable declaration
+
+                int weeknum=0;
+                double totalExpense = 0;
+                double Eamount =0;
+                String dateString = null;
+
 
                     //expense
                     while (true) {
@@ -151,13 +172,15 @@ public class Main {
                         }
 
 
+
+
                         // prompt the user for input
                         sc.nextLine();
                         System.out.print("Enter the date of the expense (YYYY-MM-DD): ");
-                        String dateString = sc.nextLine();
+                        dateString = sc.nextLine();
 
                         System.out.print("Enter the amount of the expense: ");
-                        double Eamount = sc.nextDouble();
+                        Eamount = sc.nextDouble();
                         sc.nextLine(); // consume the newline character
 
                         System.out.print("Enter the notes of the expense: ");
@@ -165,6 +188,7 @@ public class Main {
 
                         System.out.print("Enter the currency of the expense: ");
                         String Ecurrency = String.join(sc.nextLine());
+                        db.insertExpense(dateString, Eamount, weeknum,totalExpense );
 
 
                         // create a new Expense object and add it to the list
@@ -188,17 +212,18 @@ public class Main {
                     }
 
                     // Calculate total weekly expense
-                    double totalExpense = 0;
+
                     for (double expense : expenses) {
                         totalExpense += expense;
-                    }
-                    System.out.println("Total weekly expense week " +  weeknum +  totalExpense);
+                                            }
+                    db.insertExpense(dateString, Eamount,  weeknum, totalExpense);
+                    System.out.println("Total weekly expense week " +  weeknum +" "+  totalExpense);
+
+
+
 
 
                     // Print total weekly expense
-
-
-
                     BudgetWeek budgetW = new BudgetWeek();
                     budgetW.ChkExceedBudget(totalExpense, weeknum);
                 }
@@ -207,6 +232,5 @@ public class Main {
             }
         }
     }
-
 
 
