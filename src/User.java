@@ -59,14 +59,7 @@ public class User {
 
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
-        //menu
-        //int option = 0;
-        // while (option != 5 ){
-        //  System.out.println("----- Welcome to HelloMYCa$h----- \n [1] Login \n [2] Check Login Details \n [3] Set Budget \n [4] Key in Expense \n [5]Quit");
-        // System.out.print("Enter your choice of menu: ");
-        //option = sc.nextInt();
-
-
+  
         String username = null;
         String email = null;
         String password = null;
@@ -74,13 +67,9 @@ public class User {
         String fname = null;
         String mname = null;
         String lname = null;
-        int weeknum;
+        //int weeknum;
 
         User user= new User();
-
-
-
-        // if (option == 1) {
 
         try {
             System.out.print("Enter your username:");
@@ -100,7 +89,7 @@ public class User {
         } catch (Exception e) {
             System.out.println("I/O Exception");
         }
-        //  }
+     
         System.out.print(username+ email + password + age);
     }
 
