@@ -228,10 +228,11 @@ public class Main {
                     BudgetWeek budgetW = new BudgetWeek();
                     budgetW.ChkExceedBudget(totalExpense, weeknum);
                 }
-
+                
 
             }
         }
+        db.close();
     }
 
 
