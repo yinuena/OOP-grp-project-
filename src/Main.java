@@ -102,10 +102,11 @@ public class Main {
             if (option == 3) {
                 //get currency from user
                 BudgetWeek budgetW = new BudgetWeek();
+                Budget budget = new Budget();
                 sc.nextLine();
                 System.out.print("Enter the currency you want to proceed with:  ");
                 String currency = sc.nextLine();
-                budgetW.setCurrency(currency);
+                budget.setCurrency(currency);
                 String date = null;
                 int index =0;
                 float amount =0;
